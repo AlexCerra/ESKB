@@ -1,0 +1,206 @@
+units:
+  kx: cx
+  ky: cy
+  px: kx + 2
+  py: ky + 2
+points:
+  zones:
+    matrix:
+      columns:
+        outer:
+          rows:
+            mod:
+              skip: true
+          key: 
+            column_net: P031
+        pinky:
+          rows:
+            mod:
+              skip: true
+          key: 
+            column_net: P002
+        ring:
+          key:
+            stagger: 12
+            column_net: P115
+        middle:
+          key:
+            stagger: 5
+            column_net: P113
+        index:
+          key:
+            stagger: -6
+            column_net: P111
+        inner:
+          rows:
+            mod:
+              skip: true
+          key:
+            stagger: -2
+            column_net: P010
+        inner_mod:
+          key:
+            stagger: -14
+            width:
+            spread: 20
+            column_net: P009
+          rows:
+            mod:
+              skip: true
+            bottom:
+              skip: true
+            top:
+              skip: true
+            num:
+              skip: true
+      rows:
+        mod:
+          row_net: P104
+        bottom:
+          row_net: P011
+        home:
+          row_net: P100
+        top:
+          row_net: P024
+        num:
+          row_net: P022
+    thumbs:
+      key:
+      anchor:
+        ref: matrix_inner_mod
+        shift: [-4, -35]
+      columns:
+        home:
+          key:
+            splay: -18
+            origin: [105, -5]
+            column_net: P010
+        far:
+          key:
+            width: 1.5px
+            spread: 15
+            splay: 90
+            origin: [-.5, 5]
+            column_net: P009
+      rows:
+        cluster:
+          row_net: P104
+outlines:
+  left:
+    - where: true
+      what: rectangle
+      size: [px, py]
+  leftkeys:
+    - what: rectangle
+      where: true
+      bound: false
+      size: [14, 14]
+  board:
+    - what: polygon
+      operation: stack
+      points:
+        - ref: matrix_outer_num
+          shift: [-0.6px,0.6py]
+        - ref: matrix_pinky_num
+          shift: [0px,0.8py]
+        - ref: matrix_ring_num
+          shift: [0px,0.85py]
+        - ref: matrix_middle_num
+          shift: [0px, 0.7py]
+        - ref: matrix_index_num
+          shift: [0px,0.85py]
+        - ref: matrix_inner_num
+          shift: [2px,0.5py]
+        - ref: thumbs_far_cluster
+          shift: [-1px,-1py]
+        - ref: thumbs_home_cluster
+          shift: [-0.5px,-0.7py]
+        - ref: matrix_index_mod
+          shift: [0px,-0.98py]
+        - ref: matrix_ring_mod
+          shift: [0px,-0.6py]
+        - ref: matrix_pinky_bottom
+          shift: [0px,-1py]
+        - ref: matrix_outer_bottom
+          shift: [-0.6px,-1py]
+      fillet: 5
+  combo:
+    - name: board
+    - operation: subtract
+      name: leftkeys
+pcbs:
+  left:
+    outlines:
+      main:
+        outline: board
+    footprints:
+      keyswitchs:
+        where: true
+        what: choc
+        params:
+          hotswap: true
+          reverse: False
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+      diode: 
+        what: diode
+        where: true
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -5]
+      nice_nano:
+        what: nice_nano
+        params:
+          orientation: down
+        where:
+          ref: matrix_inner_top
+          shift: [27, 11]
+          rotate: 268
+      oled:
+        what: oled
+        params: 
+          side: "F"
+          SDA: P017
+          SCL: P020
+        where:
+          ref: matrix_inner_top
+          shift: [32.5, -7]
+          rotate: 268
+      reset:
+        what: button
+        params:
+          side: B
+          from: GND
+          to: RST
+        where:
+          ref: matrix_inner_top
+          shift: [27.5, 25]
+      #Still need to adjust
+      jstph:
+        what: jstph
+        where:
+          ref: matrix_inner_top
+          shift: [30, -20]
+          rotate: -90
+        params:
+            side: B
+            pos: pos
+            neg: GND
+      battery_switch:
+        what: slider
+        where:
+            ref: matrix_inner_top
+            shift: [36, -20]
+            rotate: -92
+        params:
+            side: B
+            from: VCC
+            to: RAW
+
+
+cases:
+  plate:
+    - name: combo
+      extrude: 1.2
