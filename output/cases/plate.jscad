@@ -1,4 +1,4 @@
-function combo_extrude_1_2_outline_fn(){
+function left_combo_extrude_1_2_outline_fn(){
     return new CSG.Path2D([[-12,5],[-12,82.9754782]]).appendArc([-7.6083495,87.9383313],{"radius":5,"clockwise":true,"large":false}).appendPoint([17.7952772,91.0523243]).appendArc([20.0029372,91.8835808],{"radius":5,"clockwise":false,"large":false}).appendPoint([36.9767098,103.452547]).appendArc([39.2305178,104.2892428],{"radius":5,"clockwise":true,"large":false}).appendPoint([56.3075243,106.2216409]).appendArc([57.6875103,106.186018],{"radius":5,"clockwise":true,"large":false}).appendPoint([75.9538251,103.1576553]).appendArc([76.0463121,103.1432101],{"radius":5,"clockwise":false,"large":false}).appendPoint([130.5250965,95.1560664]).appendArc([134.7946422,89.9819237],{"radius":5,"clockwise":true,"large":false}).appendPoint([130.1248567,-12.7580181]).appendArc([123.467781,-17.2466007],{"radius":5,"clockwise":true,"large":false}).appendPoint([86.1278959,-4.0844493]).appendArc([82.1287133,-4.3798037],{"radius":5,"clockwise":false,"large":false}).appendPoint([77.6119407,-6.7677812]).appendArc([74.2178617,-7.2344954],{"radius":5,"clockwise":true,"large":false}).appendPoint([38.6006792,0.4700636]).appendArc([37.3857343,0.5806021],{"radius":5,"clockwise":false,"large":false}).appendPoint([19.0788879,0.0024912]).appendArc([18.9210719,0],{"radius":5,"clockwise":true,"large":false}).appendPoint([-7,0]).appendArc([-12,5],{"radius":5,"clockwise":true,"large":false}).close().innerToCAG()
 .subtract(
     new CSG.Path2D([[108,26],[122,26]]).appendPoint([122,40]).appendPoint([108,40]).appendPoint([108,26]).close().innerToCAG()
@@ -70,7 +70,7 @@ function combo_extrude_1_2_outline_fn(){
                     
 
                 // creating part 0 of case plate
-                let plate__part_0 = combo_extrude_1_2_outline_fn();
+                let plate__part_0 = left_combo_extrude_1_2_outline_fn();
 
                 // make sure that rotations are relative
                 let plate__part_0_bounds = plate__part_0.getBounds();

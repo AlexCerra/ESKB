@@ -12,38 +12,38 @@ points:
             mod:
               skip: true
           key: 
-            column_net: P031
+            column_net: P115
         pinky:
           rows:
             mod:
               skip: true
           key: 
-            column_net: P002
+            column_net: P113
         ring:
           key:
             stagger: 12
-            column_net: P115
+            column_net: P111
         middle:
           key:
             stagger: 5
-            column_net: P113
+            column_net: P010
         index:
           key:
             stagger: -6
-            column_net: P111
+            column_net: P009
         inner:
           rows:
             mod:
               skip: true
           key:
             stagger: -2
-            column_net: P010
+            column_net: P011
         inner_mod:
           key:
             stagger: -14
             width:
             spread: 20
-            column_net: P009
+            column_net: P104
           rows:
             mod:
               skip: true
@@ -55,15 +55,15 @@ points:
               skip: true
       rows:
         mod:
-          row_net: P104
-        bottom:
-          row_net: P011
-        home:
-          row_net: P100
-        top:
-          row_net: P024
-        num:
           row_net: P022
+        bottom:
+          row_net: P020
+        home:
+          row_net: P017
+        top:
+          row_net: P008
+        num:
+          row_net: P006
     thumbs:
       key:
       anchor:
@@ -74,28 +74,32 @@ points:
           key:
             splay: -18
             origin: [105, -5]
-            column_net: P010
+            column_net: P011
         far:
           key:
             width: 1.5px
             spread: 15
             splay: 90
             origin: [-.5, 5]
-            column_net: P009
+            column_net: P104
       rows:
         cluster:
-          row_net: P104
+          row_net: P022
+  mirror:
+    ref: matrix_inner_num
+    distance: 100
+#Need to do right outline.. or mirror it
 outlines:
-  left:
+  base:
     - where: true
       what: rectangle
       size: [px, py]
-  leftkeys:
+  keys:
     - what: rectangle
       where: true
       bound: false
       size: [14, 14]
-  board:
+  left_board:
     - what: polygon
       operation: stack
       points:
@@ -124,15 +128,45 @@ outlines:
         - ref: matrix_outer_bottom
           shift: [-0.6px,-1py]
       fillet: 5
-  combo:
-    - name: board
+  right_board:
+    - what: polygon
+      operation: stack
+      points:
+        - ref: mirror_matrix_outer_num
+          shift: [-0.6px,0.6py]
+        - ref: mirror_matrix_pinky_num
+          shift: [0px,0.8py]
+        - ref: mirror_matrix_ring_num
+          shift: [0px,0.85py]
+        - ref: mirror_matrix_middle_num
+          shift: [0px, 0.7py]
+        - ref: mirror_matrix_index_num
+          shift: [0px,0.85py]
+        - ref: mirror_matrix_inner_num
+          shift: [2px,0.5py]
+        - ref: mirror_thumbs_far_cluster
+          shift: [-1px,-1py]
+        - ref: mirror_thumbs_home_cluster
+          shift: [-0.5px,-0.7py]
+        - ref: mirror_matrix_index_mod
+          shift: [0px,-0.98py]
+        - ref: mirror_matrix_ring_mod
+          shift: [0px,-0.6py]
+        - ref: mirror_matrix_pinky_bottom
+          shift: [0px,-1py]
+        - ref: mirror_matrix_outer_bottom
+          shift: [-0.6px,-1py]
+      fillet: 5
+  left_combo:
+    - name: left_board
     - operation: subtract
-      name: leftkeys
+      name: keys
+#Need to do right PCB and fix adust mounting holes on left pcb 
 pcbs:
   left:
     outlines:
       main:
-        outline: board
+        outline: left_board
     footprints:
       keyswitchs:
         where: true
@@ -153,54 +187,207 @@ pcbs:
       nice_nano:
         what: nice_nano
         params:
-          orientation: down
-        where:
+          orientation: up
+        where: 
           ref: matrix_inner_top
-          shift: [27, 11]
-          rotate: 268
+          shift: [23, 12.5]
+          rotate: 261.7
       oled:
         what: oled
         params: 
-          side: "F"
-          SDA: P017
-          SCL: P020
+          side: A
+          SDA: P024
+          SCL: P100
         where:
           ref: matrix_inner_top
-          shift: [32.5, -7]
-          rotate: 268
+          shift: [27.5, -0.5]
+          rotate: 261.7
       reset:
         what: button
         params:
-          side: B
+          side: "F"
           from: GND
           to: RST
         where:
           ref: matrix_inner_top
-          shift: [27.5, 25]
-      #Still need to adjust
-      jstph:
-        what: jstph
-        where:
-          ref: matrix_inner_top
-          shift: [30, -20]
-          rotate: -90
-        params:
-            side: B
-            pos: pos
-            neg: GND
+          shift: [35.5, 0]
+          rotate: -92.5
       battery_switch:
         what: slider
         where:
             ref: matrix_inner_top
-            shift: [36, -20]
-            rotate: -92
+            shift: [37.2, 10]
+            rotate: -92.5
+        params:
+            side: "F"
+            from: pos
+            to: RAW
+      jstph:
+        what: jstph
+        where:
+          ref: matrix_inner_top
+          shift: [33.5, -10]
+          rotate: 356
         params:
             side: B
-            from: VCC
-            to: RAW
+            pos: pos
+            neg: GND
+      encoder:
+        what: pencode
+        params:
+          A: P031
+          B: P029
+          C: GND
+          S1: P002
+        where:
+          ref: matrix_inner_home
+          shift: [19.5, 5]
+          rotate: 90
+      #Adust position of holes
+      #hole_bottom_right:
+      #  what: mountinghole
+      #  where:
+      #    ref: matrix_fifth_mod
+      #    shift: [-pushX, pushY]
+      #hole_top_right:
+      #  what: mountinghole
+      #  where:
+      #    ref: matrix_fifth_mod
+      #    shift: [-pushX, pushY]
+      #hole_bottom_left:
+      #  what: mountinghole
+      #  where:
+      #    ref: matrix_fifth_mod
+      #    shift: [-pushX, pushY]
+      #hole_top_left:
+      #  what: mountinghole
+      #  where:
+      #    ref: matrix_fifth_mod
+      #    shift: [-pushX, pushY]
+      #hole_mid_right:
+      #  what: mountinghole
+      #  where:
+      #    ref: matrix_fifth_mod
+      #    shift: [-pushX, pushY]
+      #hole_mid_left:
+      #  what: mountinghole
+      #  where:
+      #    ref: matrix_fifth_mod
+      #    shift: [-pushX, pushY]
 
+  right:
+    outlines:
+      main:
+        outline: right_board
+    footprints:
+      keyswitchs:
+        where: /^mirror_*/
+        what: choc
+        params:
+          hotswap: true
+          reverse: False
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+      diode: 
+        what: diode
+        where: /^mirror_*/
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -5]
+      nice_nano:
+        what: nice_nano
+        params:
+          orientation: up
+        where: 
+          ref: mirror_matrix_inner_top
+          shift: [23, 12.5]
+          rotate: 261.7
+      oled:
+        what: oled
+        params: 
+          side: A
+          SDA: P024
+          SCL: P100
+        where:
+          ref: mirror_matrix_inner_top
+          shift: [27.5, -0.5]
+          rotate: 261.7
+      reset:
+        what: button
+        params:
+          side: "F"
+          from: GND
+          to: RST
+        where:
+          ref: mirror_matrix_inner_top
+          shift: [35.5, 0]
+          rotate: -92.5
+      battery_switch:
+        what: slider
+        where:
+            ref: mirror_matrix_inner_top
+            shift: [37.2, 10]
+            rotate: -92.5
+        params:
+            side: "F"
+            from: pos
+            to: RAW
+      jstph:
+        what: jstph
+        where:
+          ref: mirror_matrix_inner_top
+          shift: [33.5, -10]
+          rotate: 356
+        params:
+            side: B
+            pos: pos
+            neg: GND
+      encoder:
+        what: pencode
+        params:
+          A: P031
+          B: P029
+          C: GND
+          S1: P002
+        where:
+          ref: mirror_matrix_inner_home
+          shift: [19.5, 5]
+          rotate: 90
+      #Adust position of holes
+      #hole_bottom_right:
+      #  what: mountinghole
+      #  where:
+      #    ref: matrix_fifth_mod
+      #    shift: [-pushX, pushY]
+      #hole_top_right:
+      #  what: mountinghole
+      #  where:
+      #    ref: matrix_fifth_mod
+      #    shift: [-pushX, pushY]
+      #hole_bottom_left:
+      #  what: mountinghole
+      #  where:
+      #    ref: matrix_fifth_mod
+      #    shift: [-pushX, pushY]
+      #hole_top_left:
+      #  what: mountinghole
+      #  where:
+      #    ref: matrix_fifth_mod
+      #    shift: [-pushX, pushY]
+      #hole_mid_right:
+      #  what: mountinghole
+      #  where:
+      #    ref: matrix_fifth_mod
+      #    shift: [-pushX, pushY]
+      #hole_mid_left:
+      #  what: mountinghole
+      #  where:
+      #    ref: matrix_fifth_mod
+      #    shift: [-pushX, pushY]
 
 cases:
   plate:
-    - name: combo
+    - name: left_combo
       extrude: 1.2
