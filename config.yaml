@@ -169,7 +169,7 @@ pcbs:
         outline: left_board
     footprints:
       keyswitchs:
-        where: true
+        where: /^(?!mirror_)(?:matrix|thumbs)_.*/
         what: choc
         params:
           hotswap: true
@@ -178,7 +178,7 @@ pcbs:
           to: "{{colrow}}"
       diode: 
         what: diode
-        where: true
+        where: /^(?!mirror_)(?:matrix|thumbs)_.*/
         params:
           from: "{{colrow}}"
           to: "{{row_net}}"
@@ -243,37 +243,46 @@ pcbs:
           ref: matrix_inner_home
           shift: [19.5, 5]
           rotate: 90
-      #Adust position of holes
-      #hole_bottom_right:
-      #  what: mountinghole
-      #  where:
-      #    ref: matrix_fifth_mod
-      #    shift: [-pushX, pushY]
-      #hole_top_right:
-      #  what: mountinghole
-      #  where:
-      #    ref: matrix_fifth_mod
-      #    shift: [-pushX, pushY]
-      #hole_bottom_left:
-      #  what: mountinghole
-      #  where:
-      #    ref: matrix_fifth_mod
-      #    shift: [-pushX, pushY]
-      #hole_top_left:
-      #  what: mountinghole
-      #  where:
-      #    ref: matrix_fifth_mod
-      #    shift: [-pushX, pushY]
-      #hole_mid_right:
-      #  what: mountinghole
-      #  where:
-      #    ref: matrix_fifth_mod
-      #    shift: [-pushX, pushY]
-      #hole_mid_left:
-      #  what: mountinghole
-      #  where:
-      #    ref: matrix_fifth_mod
-      #    shift: [-pushX, pushY]
+      hole_top_left:
+        what: mountinghole
+        where:
+          ref: matrix_inner_num
+          shift: [-70, 5]
+      hole_bottom_left:
+        what: mountinghole
+        where:
+          ref: matrix_inner_num
+          shift: [-90, -78]
+      hole_middle_left:
+        what: mountinghole
+        where:
+          ref: matrix_inner_num
+          shift: [-85.5,-37]
+      hole_middle_middle:
+        what: mountinghole
+        where:
+          ref: matrix_inner_num
+          shift: [-28.5,-39.5]
+      hole_middle_bottom:
+        what: mountinghole
+        where:
+          ref: matrix_inner_num
+          shift: [-31,-82]
+      hole_bottom_right:
+        what: mountinghole
+        where:
+          ref: matrix_inner_num
+          shift: [30, -96]
+      hole_top_right:
+        what: mountinghole
+        where:
+          ref: matrix_inner_num
+          shift: [12, 10]
+      hole_middle_right:
+        what: mountinghole
+        where:
+          ref: matrix_inner_num
+          shift: [35, -48]
 
   right:
     outlines:
@@ -303,7 +312,7 @@ pcbs:
         where: 
           ref: mirror_matrix_inner_top
           shift: [23, 12.5]
-          rotate: 261.7
+          rotate: 81.7
       oled:
         what: oled
         params: 
@@ -312,8 +321,8 @@ pcbs:
           SCL: P100
         where:
           ref: mirror_matrix_inner_top
-          shift: [27.5, -0.5]
-          rotate: 261.7
+          shift: [15, 1.5]
+          rotate: 81.7
       reset:
         what: button
         params:
@@ -353,39 +362,48 @@ pcbs:
           S1: P002
         where:
           ref: mirror_matrix_inner_home
-          shift: [19.5, 5]
-          rotate: 90
-      #Adust position of holes
-      #hole_bottom_right:
-      #  what: mountinghole
-      #  where:
-      #    ref: matrix_fifth_mod
-      #    shift: [-pushX, pushY]
-      #hole_top_right:
-      #  what: mountinghole
-      #  where:
-      #    ref: matrix_fifth_mod
-      #    shift: [-pushX, pushY]
-      #hole_bottom_left:
-      #  what: mountinghole
-      #  where:
-      #    ref: matrix_fifth_mod
-      #    shift: [-pushX, pushY]
-      #hole_top_left:
-      #  what: mountinghole
-      #  where:
-      #    ref: matrix_fifth_mod
-      #    shift: [-pushX, pushY]
-      #hole_mid_right:
-      #  what: mountinghole
-      #  where:
-      #    ref: matrix_fifth_mod
-      #    shift: [-pushX, pushY]
-      #hole_mid_left:
-      #  what: mountinghole
-      #  where:
-      #    ref: matrix_fifth_mod
-      #    shift: [-pushX, pushY]
+          shift: [19, 3]
+          rotate: 180
+      hole_top_left:
+        what: mountinghole
+        where:
+          ref: mirror_matrix_inner_num
+          shift: [-70, 5]
+      hole_bottom_left:
+        what: mountinghole
+        where:
+          ref: mirror_matrix_inner_num
+          shift: [-90, -78]
+      hole_middle_left:
+        what: mountinghole
+        where:
+          ref: mirror_matrix_inner_num
+          shift: [-85.5,-37]
+      hole_middle_middle:
+        what: mountinghole
+        where:
+          ref: mirror_matrix_inner_num
+          shift: [-28.5,-39.5]
+      hole_middle_bottom:
+        what: mountinghole
+        where:
+          ref: mirror_matrix_inner_num
+          shift: [-31,-82]
+      hole_bottom_right:
+        what: mountinghole
+        where:
+          ref: mirror_matrix_inner_num
+          shift: [30, -96]
+      hole_top_right:
+        what: mountinghole
+        where:
+          ref: mirror_matrix_inner_num
+          shift: [12, 10]
+      hole_middle_right:
+        what: mountinghole
+        where:
+          ref: mirror_matrix_inner_num
+          shift: [35, -48]
 
 cases:
   plate:
